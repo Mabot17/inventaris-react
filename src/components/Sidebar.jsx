@@ -1,21 +1,32 @@
 // src/components/Sidebar.jsx
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
+  const menus = [
+    { name: "Produk", path: "/produk", icon: "📦" },
+    { name: "Stok Masuk", path: "/stok-in", icon: "📥" },
+    { name: "Stok Keluar", path: "/stok-out", icon: "📤" },
+    { name: "Laporan", path: "/lap-stok", icon: "📊" },
+  ];
+
   return (
-    <div style={{
-      width: "200px",
-      background: "#f4f4f4",
-      height: "100vh",
-      padding: "20px"
-    }}>
-      <h3>Inventaris</h3>
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        <li><Link to="/produk">Produk</Link></li>
-        <li><Link to="/stok-in">Stok In</Link></li>
-        <li><Link to="/stok-out">Stok Out</Link></li>
-        <li><Link to="/lap-stok">Laporan</Link></li>
-      </ul>
+    <div className="sidebar">
+      <h2 className="sidebar-title">Inventaris</h2>
+
+      <div className="sidebar-menu">
+        {menus.map((m, i) => (
+          <NavLink
+            key={i}
+            to={m.path}
+            className={({ isActive }) =>
+              isActive ? "menu-item active" : "menu-item"
+            }
+          >
+            <span className="icon">{m.icon}</span>
+            <span>{m.name}</span>
+          </NavLink>
+        ))}
+      </div>
     </div>
   );
 }
